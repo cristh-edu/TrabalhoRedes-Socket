@@ -25,7 +25,7 @@ if ($protocolo === "SOL_TCP"){
 
 //Faz a conecção com o servidor que retorna true se conectou ou escreve o erro na tela
 $porta = 4000;
-$ipServidor = '192.168.0.106';
+$ipServidor = 'localhost';
 if(!socket_connect($sock , $ipServidor, $porta))
 {
     $errorcode = socket_last_error();
