@@ -1,5 +1,5 @@
 const net = require('net')
-var mysql = require('mysql');
+const db = require('./db')
 
 const handleConnection = socket => {
     console.log('alguem conectou')
@@ -8,35 +8,33 @@ const handleConnection = socket => {
     })
     socket.on('data', data => {
         const str = data.toString()
-        getName(str)
+        console.log(str)
+        //getTime(str)
+        db('tbTime')
+        .where('nome', 'like', `%${str}%`)
+        .then(times=>{
+            const timesJson = JSON.parse(times)
+            console.log(timesJson)
+            socket.emit(timesJson)
+        })
+        .catch(err => res.status(500).json(err))
         if (str === 'end') {
             socket.end()
         }
-        console.log(str)
     })
 }
 
 const server = net.createServer(handleConnection)
 
 
+
 server.listen(4000)
 
-var banco = mysql.createConnection({
-  host: "us-cdbr-east-03.cleardb.com",
-  user: "b5f226df07b093",
-  password: "3c58c123",
-  database: "heroku_712191942a4f680"
-});
 
-
-function getName(nmTime){
-
-    var select = "SELECT * FROM tbTime WHERE nome LIKE '%"+nmTime+"%'"
-    banco.connect(function(err) {
-        if (err) throw err;
-        banco.query(select, function (err, result, fields) {
-          if (err) throw err;
-          console.log(result);
-        });
-      });
-}
+// const getTime = (str) =>{
+//     console.log(str)
+//     db('tbTime')
+//     .where('nome', 'like', `%${str}%`)
+//     .then(time=>{console.log(time)})
+//     .catch(err => res.status(500).json(err))
+// }

@@ -113,6 +113,7 @@
                         dele.</p>
                       <form action="time.php" method="post" class="Vegetable" id="formUTP">
                         <input type="hidden" name="protocolo" id="protocolo" value="SOL_UTP">
+                        <input class="Vegetable_fom" placeholder="Nome do Time" type="text" name="nome" id="nome">
                         <input class="Search_btn" value="Pesquisar com UTP" type="submit" />
                       </form>
                     </div>

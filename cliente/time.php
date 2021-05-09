@@ -66,7 +66,12 @@
       <br>
       <div class="row">
         <?php
-        include 'client.php';
+        $protocolo = $_POST['protocolo'];
+        if ($protocolo === "SOL_TCP"){
+          include 'cliente-tcp.php';
+        }else{
+          include 'cliente-udp.php';
+        }
         ?>
       </div>
       <div class="row">
